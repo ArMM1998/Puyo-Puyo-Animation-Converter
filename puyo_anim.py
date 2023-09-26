@@ -351,8 +351,8 @@ def get_hierarchy(offset, num_of_elms):
     for i in range(num_of_elms):
         hierarchy.append([bytesToInt(offset+i*8, 4), bytesToInt(offset+4+i*8, 4)])
     
+    #print(hierarchy)
     parenting = getParentData(hierarchy)
-    print(parenting)
     hierarchy = []
     for a in parenting:
         if a == None:
@@ -362,32 +362,30 @@ def get_hierarchy(offset, num_of_elms):
     
     return hierarchy
 
-def getParentData(elementDataIn):
-    no_loop = []
-    parentData = [None] * len(elementDataIn)
-    elementData = elementDataIn.copy()
-    currentId = 0
-    for entry in elementData:
-        entry.append(currentId)
-        currentId += 1
-    newElementData = []
-    #print(elementDataIn)
-    while len(elementData) != 0:
-        for entry in elementData:
-            if entry[0] != -1:
-                if parentData[entry[0]] is None:
-                    parentData[entry[0]] = entry[2]
-                else:
-                    newElementData.append(entry)  # Append to process later
-            if entry[1] != -1:
-                if parentData[entry[2]] is None:
-                    newElementData.append(entry)  # Append to process later
-                else:
-                    parentData[entry[1]] = parentData[entry[2]]
-        elementData = newElementData
-        newElementData = []
+def getParentData(array):
+
+
+    #print(array)
+    n = len(array)
+    parents = [-1] * n  
+    
+    def traverse(node, parent):
+        left_child, right_sibling = array[node]
+        parents[node] = parent
+
+        if left_child != -1:
+            traverse(left_child, node)
         
-    return parentData
+        if right_sibling != -1:
+            traverse(right_sibling, parent)
+
+    traverse(0, -1)
+    log("hierarchy: ")
+    log(array)
+    
+    log("parenting array: ")
+    log(parents)
+    return parents
 
 
 
@@ -399,11 +397,11 @@ if mode == "to_json":
     try:
         ncsc = get_string(32,4)
     except:
-        print(input_file, "not anim")
+        print(input_file, "is not a valid animation file.")
         #input("not anim")
         exit()
     if get_string(32,4) != "nCSC" :
-        print(input_file, "not anim")
+        print(input_file, "is not a valid animation file.")
         #input("not anim")
         exit()
     log("starting conversion to json")
@@ -1155,3 +1153,4 @@ if mode == "to_anim":
         f.write(animation_hex)
     log("Pointer List:")
     log(pointer_list) 
+print("Done.")
