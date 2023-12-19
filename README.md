@@ -1,4 +1,4 @@
-# puyo_anim
+# Puyo Puyo Animation Converter
 Puyo Puyo animation converter to Json format and back.
 This script was made in python 3.4.
 
