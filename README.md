@@ -23,9 +23,9 @@ The conversion will depend on the file extension of the input.If the extension i
 If it has any extension other than 'json', or no extension at all, it will treat the input file as an animation file.
 
 # Formats Supported 
-These are the common extensions you'll find that are supported.
-`.snc` - Playstation 2 / Playstation Portable
-`.dncs` - Nintendo DS / 3DS
-`.gncs` - Wii
-
+These are the common extensions you'll find that are supported.  
+`.snc` - Playstation 2 / Playstation Portable  
+`.dncs` - Nintendo DS / Nintendo 3DS / Android & iOS  
+`.gncs` - Wii  
+  
 In some cases, such as Puyo Puyo Quest, the animation files will have no extension and you'll have to identify them manually.
